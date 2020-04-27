@@ -417,7 +417,6 @@ export default {
         password_confirmation: this.form.password_confirmation,
         type_user: "2"
       };
-      //await Csrf.getCookie();
       const data = await Api.post("/register", form);
       console.log(data);
       this.form.name = "";
@@ -426,16 +425,17 @@ export default {
       this.form.password_confirmation = "";
       alert("Registro Completado");
     },
-    registerDocente() {
-      User.register(this.form2)
-        .then(() => {
-          this.$router.push({ name: "Dashboard" });
-        })
-        .catch(error => {
-          if (error.response.status === 422) {
-            this.errors = error.response.data.errors;
-          }
-        });
+    async registerDocente() {
+      console.log()
+      let form = {
+        name: this.form2.name,
+        email: this.form2.email,
+        password: this.form2.password,
+        password_confirmation: this.form2.password_confirmation,
+        type_user: "3"
+      };
+      const data = await Api.post("/register", form);
+      console.log(data);
       this.form2.name = "";
       this.form2.email = "";
       this.form2.password = "";
